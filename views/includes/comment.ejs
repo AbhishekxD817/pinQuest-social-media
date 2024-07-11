@@ -1,0 +1,24 @@
+<div class="comments-container-b">
+    <div class="card mt-3">
+        <div class="px-2 py-2 card-container position-relative">
+          <span class="maintxt"><%= message.comment %></span>
+          <div class="d-flex pt-3">
+            <div><img src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" width="50" class="rounded-circle"></div>
+            <div class="ml-2">
+              <span class="name"><%= message.author.name %></span>
+              <p class="para"><a href="/<%= message.author.username %>">@<%= message.author.username %></a></p>
+            </div>
+          </div>
+
+
+          <% if(currentUser && currentUser._id.equals(message.author._id)) { %>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light">
+              <form action="/pins/<%= pinId %>/comments/<%= message._id %>?_method=DELETE" method="post">
+                <button class="btn p-0 btn-light" style="color: rgb(255, 0, 0);background-color: transparent;  "><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </span>
+            <% } %>
+        
+        </div>
+      </div>
+</div>

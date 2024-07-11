@@ -1,0 +1,114 @@
+
+
+<%- include('./includes/html-head.ejs',{title:'Home'}) %>
+
+<%- include('./includes/header.ejs') %>
+<%- include('./includes/flashMessage.ejs') %>
+
+
+
+
+<div class="create-post-form">
+    <div class="container-fluid px-1 py-5 mx-auto">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+          <h3>Create New Pin</h3>
+    
+          <div class="card">
+            <form class="form-card needs-validation" action="/pins" method="post" enctype="multipart/form-data" novalidate >
+
+                    <!-- Image Upload Field -->
+              <div>
+                <div class="mb-4 d-flex justify-content-center">
+                    <img id="selectedImage" src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                    alt="example placeholder" style="width: 300px;" />
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div data-mdb-ripple-init class="btn btn-primary btn-rounded">
+                        <label class="form-label text-white m-1" for="customFile1">Choose file</label>
+                        <input required  name="image" type="file" class="form-control d-none" id="customFile1" accept=".jpg,.png,.jpeg" onchange="displaySelectedImage(event, 'selectedImage')" />
+                        <div class="invalid-feedback">
+                            Please choose a image
+                          </div>
+                    </div>
+
+                </div>
+
+            </div>
+    
+              <!-- Title Field -->
+              <div class="form-group text-left px-3">
+                <label class="form-control-label">Title<span class="text-danger"> *</span></label>
+                <input  required type="text" class="form-control" id="title" name="title" placeholder="Enter title">
+              </div>
+    
+
+              <!-- Description Textarea -->
+              <div class="form-group text-left px-3">
+                <label class="form-control-label">Description<span class="text-danger"> *</span></label>
+                <textarea required class="form-control" id="description" name="description" rows="3" placeholder="Enter description"></textarea>
+              </div>
+    
+              <!-- Tags Field -->
+              <div class="form-group text-left px-3">
+                <label class="form-control-label">Tags<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" id="tags" name="tags" placeholder="Enter tags">
+              </div>
+    
+              <!-- Submit Button -->
+              <div class="form-group px-3">
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<script>
+    (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+
+  <script>
+    function displaySelectedImage(event, elementId) {
+  const selectedImage = document.getElementById(elementId);
+  const fileInput = event.target;
+
+  if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+          selectedImage.src = e.target.result;
+      };
+
+      reader.readAsDataURL(fileInput.files[0]);
+  }
+}
+  </script>
+
+
+
+<%- include('./includes/html-foot.ejs') %>

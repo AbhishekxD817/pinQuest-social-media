@@ -1,0 +1,197 @@
+
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+}
+
+
+.container-fluid,
+.cards-container {
+    max-width: 1200px;
+}
+
+
+.cards-container-2-showpin{
+    border: 1px solid rgba(0, 0, 0, 0.250);
+    background-color: rgba(154, 214, 211, 0.150);
+    padding: 10px 0 25px 0;
+    border-radius: 15px;
+}
+
+
+
+
+
+.show-pin {
+    max-width: 400px;
+    max-height: 550px;
+    display: flex;
+    justify-content: center;
+    background-color: #FFF;
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.568);
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.show-pin  img {
+    transition: all linear 0.25s;
+    width: 100%;
+    object-fit: cover;
+
+}
+
+.show-pin  .profile-name {
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 150px;
+    left: 20px;
+    bottom: 50px;
+    font-size: 20px;
+    color: #FFF;
+    font-weight: 500;
+    transition: all linear 0.25s;
+    background-color: rgba(0, 0, 0, 0.096);
+    text-shadow: 1px 2px 5px black;
+}
+
+
+
+.show-pin  .profile-username {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.096);
+    text-shadow: 1px 2px 5px black;
+    
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    color: #FFF;
+    font-size: 12px;
+    transition: all linear 0.25s;
+}
+
+
+.show-pin:hover img {
+    filter: grayscale(100%);
+}
+
+.show-pin:hover .profile-name {
+    bottom: 60px;
+}
+
+.show-pin:hover .profile-username {
+    bottom: 40px;
+}
+
+
+.overlay-show-pin{
+
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+.overlay-show-pin p{
+    padding: 0 1rem;
+}
+
+.follow-div{
+
+    padding: 0 1rem;
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid rgba(0, 0, 0, 0.301);
+    
+    padding-top: 1rem;
+}
+
+.tags-container-div{
+    font-size: 12px;
+    padding: .5rem .5rem;
+    margin-bottom: 1rem;
+}
+.tags-container-div span{
+    margin: 0 5px;
+    background-color: aqua;
+}
+
+@media (max-width:456px) {
+    .show-pin {
+        max-width: 280px;
+        max-height: 450px;
+    }
+    .show-pin img{
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .show-pin  .profile-name {
+        position: absolute;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        width: 120px;
+    }
+    .follow-div{
+        border-top: 1px solid rgba(0, 0, 0, 0.411);
+        border-radius: 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.411);
+
+
+        padding: 1rem 1rem;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .follow-div a{
+        height: 100%;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .follow-div h4{
+        font-size: 16px;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: blue;
+        background-color: rgba(0, 0, 0, 0.322);
+    }
+
+    .follow-div .follow-unfollow-a a{
+        font-size: 12px;
+        margin: 0;
+        padding: 0.5rem auto;
+
+
+    }
+    
+    .cards-container-2-showpin{
+        background-color: rgba(154, 214, 211, 0.150);
+        padding: 10px 0 25px 0;
+        border: 1px solid rgba(0, 0, 0, 0.250);
+        border-radius: 15px;
+    }
+
+
+    .share-like-btn-container {
+        padding: 0 1rem;
+    }
+ 
+
+
+
+
+
+}

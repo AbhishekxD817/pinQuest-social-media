@@ -1,0 +1,157 @@
+<%- include('./includes/html-head.ejs',{title:'Home'}) %>
+
+    <%- include('./includes/header.ejs') %>
+        <%- include('./includes/flashMessage.ejs') %>
+
+            <section class="my-4">
+                <div class="cards-container container">
+                    <div
+                        class="d-flex flex-wrap column-gap-4 justify-content-center cards-container-2 cards-container-2-showpin">
+                        <div class="overlay-show-pin mx-5">
+                            <h1 class="profile-name">
+                                <%= pin.title %>
+                            </h1>
+                            <div class="show-pin">
+                                <img src="<%= pin.image.url %>" class="img img-responsive">
+                            </div>
+                            <div class="share-like-btn-container d-flex justify-content-between w-100">
+                                <button id="shareBtn" class="btn btn-success d-flex align-items-center"
+                                    style="height: 60%;"><i class="fab fa-whatsapp me-2"></i>Share</button>
+
+                                <div class="likeBtn-container d-flex flex-column">
+                                    <% if(currentUser && pin.likes && pin.likes.some((id)=> id.equals(currentUser._id)))
+                                        {%>
+                                        <form action="/pins/<%= pin._id %>/like?_method=DELETE" method="post">
+                                            <button data-mdb-ripple-init class="btn btn-primary btn-lg btn-floating"
+                                                style="background-color: red;" role="button"><i
+                                                    class="fa-solid fa-heart"></i>
+                                            </button>
+                                        </form>
+                                        <% } else { %>
+                                            <form action="/pins/<%= pin._id %>/like" method="post">
+                                                <button data-mdb-ripple-init class="btn btn-primary btn-lg btn-floating"
+                                                    style="background-color: red;" role="button"><i
+                                                        class="fa-regular fa-heart"></i>
+                                                </button>
+                                            </form>
+                                            <% } %>
+                                                <p class="p-0 m-0" style="text-align: center;">
+                                                    <%= pin.likes.length %>
+                                                </p>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <p class="my-3">Description:- <%= pin.description %>
+                            </p>
+                            <% if(pin.tags.length> 0){%>
+                                <div class="tags-container-div">
+                                    Tags:
+                                    <% for(let tag of pin.tags) { %>
+                                        <span>
+                                            <%= tag %>,
+                                        </span>
+                                        <% }%>
+                                </div>
+                                <% } %>
+
+                                    <div class="follow-div d-flex flex-row ">
+                                        <a href="/<%= pin.owner.username %>">
+                                            <h4 class="profile-username">@<%= pin.owner.name %>
+                                            </h4>
+                                        </a>
+                                        <div class=" d-flex follow-unfollow-a">
+                                            <% if(currentUser && !currentUser._id.equals(pin.owner._id)) {%>
+                                                <% if(currentUser && currentUser.following.some((id)=>
+                                                    id.equals(pin.owner._id))) {%>
+                                                    <a href="/<%= pin.owner.username %>/unfollow"
+                                                        class="btn1 btn btn-dark">Unfollow</a>
+                                                    <% } else if(currentUser &&
+                                                        currentUser.followRequestSent.some((uid)=>
+                                                        uid.equals(pin.owner._id))) { %>
+                                                        <a href="/<%= pin.owner.username %>/undo"
+                                                            class="btn1 btn btn-dark">Requested</a>
+                                                        <% } else { %>
+                                                            <a href="/<%= pin.owner.username %>/follow"
+                                                                class="btn1 btn btn-dark">Follow</a>
+                                                            <% }%>
+
+
+                                                                <% } %>
+                                        </div>
+
+                                    </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="comment-container my-5">
+                        <div class="comment-input-box-container">
+                            <main class="page comment-section">
+                                <section class="comment-form">
+                                    <div class="container" style="max-width: 450px;">
+                                        <form action="/pins/<%= pin._id %>/comments" method="post">
+                                            <div class="form-group">
+                                                <label for="comment" class="py-2" style="font-weight: 500; font-size: 16px;">Comment</label>
+                                                <textarea id="comment" class="form-control" rows="5" name="comment"
+                                                    placeholder="Enter your comment" aria-label="Comment"
+                                                   style="resize: none;"></textarea>
+                                                <small id="comment-help" class="form-text text-muted">Please enter your
+                                                    comment.</small>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block mt-2">Submit
+                                                Comment</button>
+                                        </form>
+
+                                    </div>
+                                </section>
+                            </main>
+                        </div>
+                        <hr>
+                        <%if(pin.comments.length > 0) { %>
+                            <h3>Comments</h3>
+                        <%} %>
+                        <div class="comments-show-div d-flex gap-3 flex-wrap justify-content-around" style="max-width: 800px; margin: 0 auto; " >
+                            <% if(pin.comments.length > 0){ %>
+                                <% for(let comment of pin.comments ){ %>
+                                    <%- include('./includes/comment.ejs',{message:comment,pinId:pin._id})%>
+                                <% } %>
+                            <% } else { %>
+                                <h4>0 comments</h4>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+
+            <script>
+                const shareBtn = document.getElementById('shareBtn')
+                shareBtn.addEventListener('click', event => {
+
+                    // Check for Web Share api support
+                    if (navigator.share) {
+                        // Browser supports native share api
+                        navigator.share({
+                            text: 'See this pin, "<%= pin.title %>" on pinQuest <Social-media-web-app> Developed By Abhishek xD : ',
+                            url: '<%= protocol %>://<%= host %>/pins/<%= pin._id %>'
+                        }).then(() => {
+                            console.log('Thanks for sharing!');
+                        })
+                            .catch((err) => console.error(err));
+                    } else {
+                        // Fallback
+                        alert("The current browser does not support the share function. Please, manually share the link")
+                    }
+                });
+            </script>
+
+            <%- include('./includes/html-foot.ejs') %>

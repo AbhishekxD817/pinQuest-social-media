@@ -1,0 +1,29 @@
+<%- include('./includes/html-head.ejs',{title:'Home'}) %>
+
+    <%- include('./includes/header.ejs') %>
+        <%- include('./includes/flashMessage.ejs') %>
+
+            <section class="my-4">
+                <div class="cards-container container">
+                    <div class="d-flex flex-wrap column-gap-4 justify-content-center cards-container-2">
+                        <% for ( let i = 0; i < pins.length ; i++){ %>
+                            <div class="overlay">
+                                <a href="/pins/<%= pins[i]._id %>">
+                                <div class="profile-card-2">
+                                    <img src="<%= pins[i].image.url %>"
+                                        class="img img-responsive">
+                                    <div class="profile-name"><%= pins[i].title %></div>
+                                    <div class="profile-username">@<%= pins[i].owner.username %></div>
+                                </div>
+                                </a>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </section>
+
+            <div class="explore-btn-div d-flex justify-content-center pt-3 pb-5">
+                <a href="/pins" class="btn btn-primary" style="width: 200px; font-size: 16px; box-shadow: 0 0 5px 1px black; font-weight: 500; padding:.5rem 0;" >Explore More</a>
+            </div>
+
+<%- include('./includes/html-foot.ejs') %>
